@@ -23,7 +23,7 @@ void setup() {
   prefs.begin("modbusRtuGw");
   config.begin(&prefs);
   debugSerial.end();
-  debugSerial.begin(config.getSerialBaudRate(), config.getSerialConfig());
+  debugSerial.begin(config.getSerialBaudRate());
   dbgln("[wifi] start");
   WiFi.mode(WIFI_STA);
   wm.setClass("invert");

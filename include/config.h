@@ -3,7 +3,7 @@
     #include <Arduino.h>
     #include <Preferences.h>
     #define debugSerial Serial
-    #define modbusSerial Serial2
+    #define modbusSerial Serial1
     #define DEBUG
 
     class Config{
