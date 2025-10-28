@@ -8,6 +8,9 @@
 #include <ModbusClientRTU.h>
 #include "config.h"
 #include "pages.h"
+from machine import WDT
+
+wdt = WDT(timeout=300000)  # enable it with a timeout of 300s (5 minutes)
 
 AsyncWebServer webServer(80);
 Config config;
@@ -63,4 +66,5 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  WDT.feed()
 }
