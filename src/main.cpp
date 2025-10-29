@@ -8,9 +8,9 @@
 #include <ModbusClientRTU.h>
 #include "config.h"
 #include "pages.h"
-from machine import WDT
+#include "esp_task_wdt.h"
 
-wdt = WDT(timeout=300000)  # enable it with a timeout of 300s (5 minutes)
+#define WDT_TIMEOUT 25 // Timeout in seconds
 
 AsyncWebServer webServer(80);
 Config config;
@@ -22,6 +22,7 @@ WiFiManager wm;
 void setup() {
   debugSerial.begin(115200);
   dbgln();
+
   dbgln("[config] load")
   prefs.begin("modbusRtuGw");
   config.begin(&prefs);
@@ -61,10 +62,17 @@ void setup() {
   dbgln("[modbus] finished");
   setupPages(&webServer, MBclient, &MBbridge, &config, &wm);
   webServer.begin();
+
+  dbgln("[watchdog] timer started");
+  esp_task_wdt_init(WDT_TIMEOUT, true);  // enable panic so ESP32 restarts
+  esp_task_wdt_add(NULL); // add current thread to WDT watch
+
   dbgln("[setup] finished");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  WDT.feed()
+
+  esp_task_wdt_reset(); // reset WDT
+  delay(1000);
 }
