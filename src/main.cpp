@@ -10,7 +10,7 @@
 #include "pages.h"
 #include "esp_task_wdt.h"
 
-#define WDT_TIMEOUT 25 // Timeout in seconds
+#define WDT_TIMEOUT 10 // Timeout in seconds
 
 AsyncWebServer webServer(80);
 Config config;
