@@ -3,8 +3,10 @@
     #include <Arduino.h>
     #include <Preferences.h>
     #define debugSerial Serial
-    #define modbusSerial Serial2
+    #define modbusSerial Serial1
     #define DEBUG
+    #define RX_PIN 37
+    #define TX_PIN 39
 
     class Config{
         private:
